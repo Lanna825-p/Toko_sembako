@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NanaMart Pro - Marketplace Sembako Lengkap</title>
+    <meta
+      name="description"
+      content="Website marketplace sembako lengkap: login, katalog, wishlist, keranjang, checkout, riwayat pesanan, dan panel admin."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-grid"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" id="home-link">
+        <span class="brand-badge">NM</span>
+        <span class="brand-copy">
+          <strong>NanaMart Pro</strong>
+          <small>Marketplace Sembako Warung</small>
+        </span>
+      </a>
+
+      <nav id="main-nav" class="main-nav">
+        <button class="nav-btn active" data-view="market" type="button">Marketplace</button>
+        <button class="nav-btn" data-view="wishlist" type="button">Wishlist</button>
+        <button class="nav-btn" data-view="orders" type="button">Pesanan</button>
+        <button class="nav-btn admin-only" data-view="admin" type="button">Admin</button>
+      </nav>
+
+      <div class="top-actions">
+        <button id="mobile-cart-toggle" class="icon-btn" type="button">
+          Keranjang <span id="mobile-cart-count">0</span>
+        </button>
+        <div id="user-chip" class="user-chip hidden">
+          <span id="user-role-pill" class="role-pill">Customer</span>
+          <strong id="user-name">-</strong>
+          <button id="logout-btn" class="ghost-btn" type="button">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-wrap">
+      <section id="auth-screen" class="auth-screen card">
+        <div class="auth-info">
+          <p class="kicker">Digitalisasi Usaha Warung</p>
+          <h1>Bangun marketplace sembako dengan fitur lengkap.</h1>
+          <p>
+            Login dulu untuk mulai. Kamu bisa pakai akun admin demo untuk kelola produk dan pesanan.
+          </p>
+          <ul class="feature-list">
+            <li>Login/Register multi user</li>
+            <li>Katalog, wishlist, keranjang, promo</li>
+            <li>Checkout, WhatsApp, riwayat pesanan</li>
+            <li>Dashboard admin + CRUD produk</li>
+          </ul>
+          <div class="demo-box">
+            <h3>Akun Demo Admin</h3>
+            <p>Email: <code>admin@nanamart.id</code></p>
+            <p>Password: <code>admin123</code></p>
+          </div>
+        </div>
+
+        <div class="auth-form-wrap">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-auth-tab="login" type="button">Login</button>
+            <button class="auth-tab" data-auth-tab="register" type="button">Register</button>
+          </div>
+
+          <form id="login-form" class="auth-form">
+            <label>
+              Email
+              <input id="login-email" type="email" placeholder="nama@email.com" required />
+            </label>
+            <label>
+              Password
+              <input id="login-password" type="password" placeholder="Minimal 6 karakter" required />
+            </label>
+            <button class="primary-btn" type="submit">Masuk ke Dashboard</button>
+          </form>
+
+          <form id="register-form" class="auth-form hidden">
+            <label>
+              Nama Lengkap
+              <input id="register-name" type="text" placeholder="Nama pemilik akun" required />
+            </label>
+            <label>
+              Email
+              <input id="register-email" type="email" placeholder="nama@email.com" required />
+            </label>
+            <label>
+              Nomor WhatsApp
+              <input id="register-phone" type="tel" placeholder="08xxxxxxxxxx" required />
+            </label>
+            <label>
+              Password
+              <input id="register-password" type="password" placeholder="Minimal 6 karakter" required />
+            </label>
+            <button class="primary-btn" type="submit">Buat Akun Baru</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="app-screen" class="hidden">
+        <section class="hero card">
+          <div>
+            <p class="kicker">NanaMart Pro</p>
+            <h2>Kelola marketplace warungmu dari satu halaman.</h2>
+            <p id="hero-copy">
+              Pantau stok, transaksi, dan pesanan pelanggan secara real-time dari dashboard ini.
+            </p>
+          </div>
+          <div class="hero-stats">
+            <article>
+              <span>Produk Aktif</span>
+              <strong id="stat-products">0</strong>
+            </article>
+            <article>
+              <span>Pesanan Masuk</span>
+              <strong id="stat-orders">0</strong>
+            </article>
+            <article>
+              <span>Omzet Total</span>
+              <strong id="stat-revenue">Rp0</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-layout">
+          <div class="main-col">
+            <section id="market-view" class="view card active-view">
+              <div class="panel-head">
+                <div>
+                  <h3>Katalog Produk</h3>
+                  <p>Pilih produk sembako, tambah ke keranjang, lalu checkout.</p>
+                </div>
+              </div>
+              <div class="toolbar">
+                <label>
+                  Cari produk
+                  <input id="search-input" type="text" placeholder="beras, minyak, gula, telur..." />
+                </label>
+                <label>
+                  Urutkan
+                  <select id="sort-select">
+                    <option value="featured">Unggulan</option>
+                    <option value="price-asc">Harga Termurah</option>
+                    <option value="price-desc">Harga Tertinggi</option>
+                    <option value="name-asc">Nama A-Z</option>
+                    <option value="stock-desc">Stok Terbanyak</option>
+                  </select>
+                </label>
+                <label class="toggle-wrap">
+                  <input id="stock-only" type="checkbox" />
+                  <span>Hanya tampilkan stok tersedia</span>
+                </label>
+              </div>
+              <div id="category-chips" class="chips"></div>
+              <div id="product-grid" class="product-grid"></div>
+            </section>
+
+            <section id="wishlist-view" class="view card">
+              <div class="panel-head">
+                <div>
+                  <h3>Wishlist</h3>
+                  <p>Daftar produk favorit yang ingin kamu beli nanti.</p>
+                </div>
+              </div>
+              <div id="wishlist-grid" class="product-grid"></div>
+            </section>
+
+            <section id="orders-view" class="view card">
+              <div class="panel-head">
+                <div>
+                  <h3>Riwayat Pesanan</h3>
+                  <p id="orders-subtext">Semua transaksi pembelianmu akan tampil di sini.</p>
+                </div>
+              </div>
+              <div id="orders-list" class="orders-list"></div>
+            </section>
+
+            <section id="admin-view" class="view card admin-only">
+              <div class="panel-head">
+                <div>
+                  <h3>Panel Admin</h3>
+                  <p>Kelola produk sembako dan update status pesanan pelanggan.</p>
+                </div>
+              </div>
+
+              <div class="admin-grid">
+                <article class="admin-card">
+                  <h4>Tambah / Edit Produk</h4>
+                  <form id="product-form" class="admin-form">
+                    <input id="product-id" type="hidden" />
+                    <label>
+                      Nama Produk
+                      <input id="product-name" type="text" required />
+                    </label>
+                    <label>
+                      Kategori
+                      <input id="product-category" type="text" required />
+                    </label>
+                    <label>
+                      Harga
+                      <input id="product-price" type="number" min="0" required />
+                    </label>
+                    <label>
+                      Stok
+                      <input id="product-stock" type="number" min="0" required />
+                    </label>
+                    <label>
+                      Satuan
+                      <input id="product-unit" type="text" placeholder="pack / kg / liter" required />
+                    </label>
+                    <label>
+                      Label
+                      <input id="product-badge" type="text" placeholder="Best Seller / Promo" required />
+                    </label>
+                    <label>
+                      Deskripsi
+                      <textarea id="product-description" rows="2" required></textarea>
+                    </label>
+                    <div class="inline-actions">
+                      <button class="primary-btn" type="submit" id="product-save-btn">Simpan Produk</button>
+                      <button class="ghost-btn" type="button" id="product-cancel-btn">Batal Edit</button>
+                    </div>
+                  </form>
+                </article>
+
+                <article class="admin-card">
+                  <h4>Data Produk</h4>
+                  <div id="admin-products-table" class="table-wrap"></div>
+                </article>
+              </div>
+
+              <article class="admin-card">
+                <h4>Kelola Pesanan</h4>
+                <div id="admin-orders-table" class="table-wrap"></div>
+              </article>
+            </section>
+          </div>
+
+          <aside id="cart-panel" class="cart-panel card">
+            <div class="panel-head">
+              <div>
+                <h3>Keranjang</h3>
+                <p>Atur item, pakai promo, lalu checkout.</p>
+              </div>
+              <button id="clear-cart-btn" class="ghost-btn" type="button">Kosongkan</button>
+            </div>
+            <div id="cart-items" class="cart-items"></div>
+
+            <div class="promo-box">
+              <label>
+                Kode Promo
+                <div class="promo-row">
+                  <input id="promo-input" type="text" placeholder="Contoh: DISKON10" />
+                  <button id="apply-promo-btn" class="ghost-btn" type="button">Terapkan</button>
+                </div>
+              </label>
+              <small>Kode tersedia: <code>DISKON10</code> dan <code>HEMAT20</code>.</small>
+            </div>
+
+            <form id="checkout-form" class="checkout-form">
+              <h4>Checkout</h4>
+              <label>
+                Nama Penerima
+                <input id="customer-name" type="text" required />
+              </label>
+              <label>
+                WhatsApp
+                <input id="customer-phone" type="tel" required />
+              </label>
+              <label>
+                Alamat Lengkap
+                <textarea id="customer-address" rows="2" required></textarea>
+              </label>
+              <label>
+                Metode Pembayaran
+                <select id="payment-method">
+                  <option value="Transfer Bank">Transfer Bank</option>
+                  <option value="COD">COD</option>
+                  <option value="QRIS">QRIS</option>
+                </select>
+              </label>
+              <label>
+                Metode Pengiriman
+                <select id="shipping-method">
+                  <option value="Reguler">Reguler (Rp8.000)</option>
+                  <option value="Express">Express (Rp15.000)</option>
+                  <option value="Ambil Sendiri">Ambil Sendiri (Gratis)</option>
+                </select>
+              </label>
+              <div class="summary">
+                <p><span>Subtotal</span><strong id="subtotal">Rp0</strong></p>
+                <p><span>Diskon</span><strong id="discount-total">Rp0</strong></p>
+                <p><span>Ongkir</span><strong id="shipping-total">Rp0</strong></p>
+                <p class="grand"><span>Total</span><strong id="grand-total">Rp0</strong></p>
+              </div>
+              <div class="inline-actions">
+                <button id="checkout-btn" class="primary-btn" type="submit">Buat Pesanan</button>
+                <button id="checkout-wa-btn" class="ghost-btn" type="button">Pesan via WA</button>
+              </div>
+            </form>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="order-modal" class="order-modal">
+      <article>
+        <div class="modal-head">
+          <h3>Detail Pesanan</h3>
+          <button id="close-order-modal" class="ghost-btn" type="button">Tutup</button>
+        </div>
+        <div id="order-modal-content"></div>
+      </article>
+    </dialog>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
